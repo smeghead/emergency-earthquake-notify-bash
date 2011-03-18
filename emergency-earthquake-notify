@@ -12,6 +12,6 @@ message=$(echo $json | json_xs | awk '/"text"/{text=$0}/"id"/{id=$3;exit}END{pri
 touch $lastmessage_file
 lastmessage=$(cat $lastmessage_file)
 if [ "x$lastmessage" != "x$message" ]; then
-#	notify-send -c critical 緊急地震速報 "$(echo $message | sed -e 's/.*"text" : "\(.*\)",$/\1/')"
+	notify-send -c critical 緊急地震速報 "$(echo $message | sed -e 's/.*"text" : "\(.*\)",$/\1/')"
 	echo "$message" > $lastmessage_file
 fi
