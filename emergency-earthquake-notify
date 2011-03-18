@@ -1,6 +1,6 @@
 #!/bin/bash
 # crontab -l
-# * * * * * /somewhere/to/emergency-earthquake-notify-bash 
+# * * * * * /somewhere/to/emergency-earthquake-notify-bash/emergency-earthquake-notify
 
 basedir=$(dirname $0)
 account=eew_jp
