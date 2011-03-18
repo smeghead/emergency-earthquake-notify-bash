@@ -1,0 +1,19 @@
+#!/bin/bash
+# crontab -l
+# * * * * * /somewhere/to/emergency-earthquake-notify-bash 
+
+basedir=$(dirname $0)
+account=eew_jp
+url=http://api.twitter.com/1/statuses/user_timeline/$account.json
+lastmessage_file=$basedir/.lastmessage
+
+json=$(curl $url)
+message=$(echo $json | json_xs | awk '/"text"/{text=$0}/"id"/{id=$3;exit}END{print id text;}')
+touch $lastmessage_file
+lastmessage=$(cat $lastmessage_file)
+echo "[$lastmessage]"
+echo "[$message]"
+if [ "x$lastmessage" != "x$message" ]; then
+#	notify-send -c critical 緊急地震速報 "$(echo $message | sed -e 's/.*"text" : "\(.*\)",$/\1/')"
+	echo "$message" > $lastmessage_file
+fi
