@@ -7,8 +7,7 @@ account=eew_jp
 url=http://api.twitter.com/1/statuses/user_timeline/$account.json
 lastmessage_file=$basedir/.lastmessage
 
-json=$(curl $url)
-message=$(echo $json | json_xs | awk '/"text"/{text=$0}/"id"/{id=$3;exit}END{print id text;}')
+message=$(curl $url | json_xs | awk '/"text"/{text=$0}/"id"/{id=$3;exit}END{print id text;}')
 touch $lastmessage_file
 lastmessage=$(cat $lastmessage_file)
 if [ "x$lastmessage" != "x$message" ]; then
